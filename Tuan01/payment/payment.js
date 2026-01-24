@@ -1,11 +1,12 @@
 const amqp = require("amqplib");
 
 const RABBITMQ_URL = "amqp://user:password@rabbitmq:5672";
-const QUEUE = "order_queue";
+const EXCHANGE = "order_exchange";
+const QUEUE = "payment_queue";
 
 async function connectWithRetry() {
   try {
-    console.log("Consumer connecting...");
+    console.log("Payment connecting...");
     const conn = await amqp.connect(RABBITMQ_URL);
     const channel = await conn.createChannel();
 
@@ -19,7 +20,7 @@ async function connectWithRetry() {
       }
     });
   } catch (err) {
-    console.log("Consumer retry in 3s...");
+    console.log("Payment retry in 3s...");
     setTimeout(connectWithRetry, 3000);
   }
 }

@@ -6,22 +6,16 @@ app.use(express.json());
 
 const RABBITMQ_URL = "amqp://user:password@rabbitmq:5672";
 const QUEUE = "order_queue";
-const DEAD_LETTER_QUEUE = "order_queue.dlq";
 
 let channel;
-
 async function connectRabbitMQ() {
   while (true) {
     try {
       const conn = await amqp.connect(RABBITMQ_URL);
       channel = await conn.createChannel();
-      await channel.assertQueue(QUEUE, {
-        durable: true,
-        deadLetterExchange: "",      // Default Exchange
-        deadLetterRoutingKey: DEAD_LETTER_QUEUE,
-      });
+      await channel.assertQueue(QUEUE);
 
-      console.log("Producer connected to RabbitMQ");
+      console.log("Order connected to RabbitMQ");
       break;
     } catch {
       console.log("Waiting for RabbitMQ...");
@@ -31,15 +25,14 @@ async function connectRabbitMQ() {
 }
 
 app.post("/send", async (req, res) => {
-  const { message, orderId } = req.body;
+  const { message } = req.body;
 
-  if (!message || !orderId) {
-    return res.status(400).json({ error: "message or orderId is required" });
+  if (!message) {
+    return res.status(400).json({ error: "message is required" });
   }
 
   const data = {
     message: message,
-    orderId: orderId,
     timestamp: new Date()
   };
 
