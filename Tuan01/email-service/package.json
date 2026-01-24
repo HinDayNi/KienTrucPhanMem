@@ -1,0 +1,13 @@
+{
+  "name": "email-service",
+  "version": "1.0.0",
+  "main": "email.js",
+  "scripts": {
+    "start": "node email.js",
+    "dev": "node --watch --watch-path=. email.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.9",
+    "express": "^4.22.1"
+  }
+}

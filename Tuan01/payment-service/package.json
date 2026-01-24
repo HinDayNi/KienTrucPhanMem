@@ -1,0 +1,13 @@
+{
+  "name": "payment-service",
+  "version": "1.0.0",
+  "main": "payment.js",
+  "scripts": {
+    "start": "node payment.js",
+    "dev": "node --watch --watch-path=. payment.js"
+  },
+   "dependencies": {
+    "amqplib": "^0.10.9",
+    "express": "^4.22.1"
+  }
+}

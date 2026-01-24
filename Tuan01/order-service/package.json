@@ -1,0 +1,13 @@
+{
+  "name": "order-service",
+  "version": "1.0.0",
+  "main": "order.js",
+  "scripts": {
+    "start": "node order.js",
+    "dev": "node --watch --watch-path=. order.js"
+  },
+    "dependencies": {
+    "amqplib": "^0.10.9",
+    "express": "^4.22.1"
+  }
+}
