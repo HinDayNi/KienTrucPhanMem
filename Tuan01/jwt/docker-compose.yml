@@ -1,0 +1,10 @@
+services:
+  jwt-service:
+    build: .
+    container_name: jwt-service
+    ports:
+      - "3000:3000"
+    environment:
+      - JWT_SECRET=super_secret_key
+    restart: always
+ 
