@@ -56,5 +56,6 @@ public class Main {
         factory = new PremiumCinemaFactory();
         Ticket ticket2 = factory.createTicket();
         ticket2.book();
+        
     }
 }
