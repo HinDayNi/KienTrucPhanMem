@@ -1,0 +1,146 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: clamp(12px, 2.5vw, 24px);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f4efe4, #eef6f5);
+  color: #1f2a37;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+}
+
+body > p {
+  margin-bottom: 16px;
+  line-height: 1.5;
+  max-width: 980px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  background: #fffdf8;
+  border: 1px solid #ddd3c3;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.card h2 {
+  margin: 0 0 12px;
+  font-size: clamp(1.05rem, 2.2vw, 1.22rem);
+}
+
+.card.full {
+  grid-column: 1 / -1;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  display: block;
+  margin: 0;
+  padding: 9px;
+  border-radius: 8px;
+  border: 1px solid #c9bca6;
+  font-size: 14px;
+  max-width: 100%;
+}
+
+button {
+  margin-top: 10px;
+  background: #1f5b49;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.card button + button {
+  margin-top: 8px;
+}
+
+button.secondary {
+  background: #7a5c42;
+}
+
+button:hover {
+  filter: brightness(0.95);
+}
+
+.status {
+  padding: 10px;
+  border-radius: 8px;
+  background: #ecf7f1;
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+
+.output-block {
+  margin-top: 14px;
+}
+
+.output-block h3 {
+  margin: 0 0 8px;
+  font-size: 0.98rem;
+}
+
+pre {
+  background: #131920;
+  color: #d7f7e5;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 0;
+  min-height: 110px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow: auto;
+  max-height: 260px;
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 560px) {
+  body {
+    padding: 10px;
+  }
+
+  button,
+  input,
+  select {
+    font-size: 16px;
+  }
+
+  pre {
+    min-height: 92px;
+    max-height: 220px;
+  }
+}

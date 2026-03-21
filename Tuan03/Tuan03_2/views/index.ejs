@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <h1><%= title %></h1>
+  <p>Mô phỏng hệ thống quản lý thư viện với 5 Design Pattern: Singleton, Factory Method, Strategy, Observer, Decorator.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h2>1) Thêm sách (Factory Method)</h2>
+      <div class="row">
+        <input id="bookTitle" type="text" placeholder="Tên sách">
+        <input id="bookAuthor" type="text" placeholder="Tác giả">
+      </div>
+      <div class="row">
+        <input id="bookGenre" type="text" placeholder="Thể loại">
+        <select id="bookType">
+          <option value="paper">Sách giấy</option>
+          <option value="ebook">Sách điện tử</option>
+          <option value="audio">Sách nói</option>
+        </select>
+      </div>
+      <button onclick="addBook()">Thêm sách</button>
+    </div>
+
+    <div class="card">
+      <h2>2) Tìm kiếm sách (Strategy)</h2>
+      <div class="row">
+        <input id="searchKeyword" type="text" placeholder="Nhập từ khóa tìm kiếm">
+        <select id="searchBy">
+          <option value="title">Theo tên</option>
+          <option value="author">Theo tác giả</option>
+          <option value="genre">Theo thể loại</option>
+        </select>
+      </div>
+      <button onclick="searchBooks()">Tìm kiếm</button>
+    </div>
+
+    <div class="card">
+      <h2>3) Mượn sách (Decorator)</h2>
+      <div class="row">
+        <input id="borrowBookId" type="text" placeholder="Mã sách, ví dụ: B1001">
+        <input id="borrowerName" type="text" placeholder="Tên người mượn">
+      </div>
+      <div class="row">
+        <input id="extendDays" type="number" min="0" value="0" placeholder="Gia hạn thêm ngày">
+        <input id="specialEdition" type="text" placeholder="Yêu cầu đặc biệt, ví dụ: bản dịch">
+      </div>
+      <button onclick="borrowBook()">Tạo phiếu mượn</button>
+    </div>
+
+    <div class="card">
+      <h2>4) Trả sách</h2>
+      <div class="row">
+        <input id="returnLoanId" type="text" placeholder="Mã phiếu mượn, ví dụ: L1">
+      </div>
+      <button onclick="returnBook()">Trả sách</button>
+    </div>
+
+    <div class="card">
+      <h2>5) Observer thông báo</h2>
+      <div class="row">
+        <input id="observerName" type="text" placeholder="Tên người theo dõi">
+        <select id="observerRole">
+          <option value="staff">Nhân viên thư viện</option>
+          <option value="subscriber">Bạn đọc theo dõi</option>
+        </select>
+      </div>
+      <button onclick="addObserver()">Đăng ký theo dõi</button>
+      <button class="secondary" onclick="checkOverdue()">Kiểm tra sách quá hạn</button>
+    </div>
+
+    <div class="card full">
+      <h2>Kết quả</h2>
+      <p id="status" class="status">Sẵn sàng.</p>
+      <div class="output-block">
+        <h3>Danh sách sách</h3>
+        <pre id="booksList"></pre>
+      </div>
+      <div class="output-block">
+        <h3>Kết quả tìm kiếm</h3>
+        <pre id="searchResult"></pre>
+      </div>
+      <div class="output-block">
+        <h3>Danh sách phiếu mượn</h3>
+        <pre id="loansList"></pre>
+      </div>
+      <div class="output-block">
+        <h3>Người theo dõi và thông báo</h3>
+        <pre id="notifications"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script src="/javascripts/main.js"></script>
+</body>
+</html>
