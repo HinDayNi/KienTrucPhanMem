@@ -7,28 +7,6 @@
     <list default="true" id="7f12ca9e-e1f3-45a7-a16e-aaf20dad0aef" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/.idea/jpa-buddy.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/Bai02.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/src/decorator/BasicOrder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/src/decorator/GiftWrap.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/src/decorator/Insurance.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/src/decorator/OrderComponent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/src/decorator/OrderDecorator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/src/order/Order.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/src/state/CancelledState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/src/state/DeliveredState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/src/state/NewState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/src/state/OrderState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/src/state/ProcessingState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/src/strategy/ExpressShipping.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/src/strategy/ShippingStrategy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tuan02/Bai02/src/strategy/StandardShipping.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,30 +21,36 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="3AwQdFL98aurFxt2pSvL5OScQj2" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/GOCHOCTAPCUAHIN/TaiLieuNam4/HK2/Kien_Truc_Phan_Mem/BAITAPTUAN/KienTrucPhanMem/Tuan02/Bai02_1",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;T:/KienTrucPhanMem&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -86,6 +70,12 @@
       <workItem from="1773501239800" duration="188000" />
       <workItem from="1773501519455" duration="241000" />
       <workItem from="1773501773040" duration="371000" />
+      <workItem from="1774095834923" duration="171000" />
+      <workItem from="1774096015664" duration="29000" />
+      <workItem from="1774096059096" duration="24000" />
+      <workItem from="1774096124271" duration="21000" />
+      <workItem from="1774096162266" duration="13000" />
+      <workItem from="1774096197916" duration="311000" />
     </task>
     <servers />
   </component>
