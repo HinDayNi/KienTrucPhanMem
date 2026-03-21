@@ -1,25 +1,91 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-  </head>
-  <body>
-    <main class="landing">
-      <h1><%= title %></h1>
-      <p>Mở trang hướng dẫn trực quan để phân biệt từng mẫu thiết kế.</p>
-      <div class="quick-links">
-        <a class="btn" href="/patterns">Mở giao diện Pattern</a>
-        <a class="btn ghost" href="/patterns/demo">Xem dữ liệu demo JSON</a>
-      </div>
-      <ul class="endpoint-list">
-        <li><a href="/">GET /</a></li>
-        <li><a href="/users">GET /users</a></li>
-        <li><a href="/patterns">GET /patterns (UI)</a></li>
-        <li><a href="/patterns/demo">GET /patterns/demo</a></li>
-        <li><a href="/api/patterns">GET /api/patterns</a></li>
-        <li><a href="/api/patterns/demo">GET /api/patterns/demo</a></li>
-      </ul>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Pattern Dashboard</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+    <main class="page">
+        <header class="hero">
+            <p class="kicker">Tuần 03 - Interactive Practice</p>
+            <h1>Design Pattern Dashboard</h1>
+            <p class="hero-text">
+                Theo dõi rõ nghiệp vụ của từng bài thông qua thao tác trực tiếp với API:
+                Composite (quản lý cây), Observer (phát thông báo), Adapter (chuyển đổi dữ liệu).
+            </p>
+        </header>
+
+        <section class="grid">
+            <article class="card" aria-labelledby="composite-title">
+                <h2 id="composite-title">Composite - Quản lý cây File/Folder</h2>
+                <p class="desc">
+                    Thêm node mới vào cấu trúc Root và xem kết quả hiển thị dạng cây.
+                </p>
+
+                <div class="field-row">
+                    <label for="itemName">Tên item</label>
+                    <input id="itemName" placeholder="Ví dụ: report.txt hoặc docs">
+                </div>
+
+                <div class="field-row">
+                    <label for="itemType">Loại item</label>
+                    <select id="itemType">
+                        <option value="file">File</option>
+                        <option value="folder">Folder</option>
+                    </select>
+                </div>
+
+                <div class="actions">
+                    <button id="btnAddItem" onclick="addItem()">Thêm vào cây</button>
+                    <button id="btnLoadTree" class="secondary" onclick="loadTree()">Tải lại cây</button>
+                </div>
+
+                <p id="compositeStatus" class="status" aria-live="polite"></p>
+                <pre id="tree" class="output"></pre>
+            </article>
+
+            <article class="card" aria-labelledby="observer-title">
+                <h2 id="observer-title">Observer - Gửi thông báo giá</h2>
+                <p class="desc">
+                    Giá thay đổi sẽ được gửi đến danh sách investor đang subscribe.
+                </p>
+
+                <div class="field-row">
+                    <label for="price">Giá mới</label>
+                    <input id="price" type="number" min="0" step="1" placeholder="Ví dụ: 120">
+                </div>
+
+                <div class="actions">
+                    <button id="btnUpdatePrice" onclick="updatePrice()">Cập nhật giá</button>
+                </div>
+
+                <p id="observerStatus" class="status" aria-live="polite"></p>
+                <pre id="observer" class="output"></pre>
+            </article>
+
+            <article class="card" aria-labelledby="adapter-title">
+                <h2 id="adapter-title">Adapter - XML sang JSON</h2>
+                <p class="desc">
+                    Nhập XML đầu vào, hệ thống parse và chuyển về định dạng JSON để xử lý.
+                </p>
+
+                <div class="field-row">
+                    <label for="xmlInput">Nội dung XML</label>
+                    <textarea id="xmlInput"><user><name>Hien</name></user></textarea>
+                </div>
+
+                <div class="actions">
+                    <button id="btnConvertXML" onclick="convertXML()">Convert XML</button>
+                </div>
+
+                <p id="adapterStatus" class="status" aria-live="polite"></p>
+                <pre id="jsonResult" class="output"></pre>
+            </article>
+        </section>
     </main>
-  </body>
+
+    <script src="/main.js"></script>
+</body>
 </html>
