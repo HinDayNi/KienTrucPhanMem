@@ -1,0 +1,25 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+title Composite Pattern (File/Folder)
+
+abstract class FileSystemItem {
+  -name: String
+  +display(): String
+}
+
+class File {
+  +display(): String
+}
+
+class Folder {
+  -children: FileSystemItem[]
+  +add(item: FileSystemItem): void
+  +display(): String
+}
+
+FileSystemItem <|-- File
+FileSystemItem <|-- Folder
+Folder "1" o-- "0..*" FileSystemItem : children
+
+@enduml

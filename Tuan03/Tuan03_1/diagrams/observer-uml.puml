@@ -1,0 +1,47 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+title Observer Pattern (Stock + Task)
+
+interface Observer {
+  +update(data): void
+}
+
+class Subject {
+  -observers: Observer[]
+  +subscribe(obs: Observer): void
+  +unsubscribe(obs: Observer): void
+  +notify(data): void
+}
+
+class Stock {
+  -symbol: String
+  -price: Number
+  +setPrice(price: Number): void
+}
+
+class Investor {
+  -name: String
+  +update(event): void
+}
+
+class Task {
+  -taskName: String
+  -status: String
+  +updateStatus(newStatus: String): void
+}
+
+class TeamMember {
+  -name: String
+  +update(event): void
+}
+
+Subject <|-- Stock
+Subject <|-- Task
+Observer <|-- Investor
+Observer <|-- TeamMember
+
+Stock "1" o-- "0..*" Observer : observers
+Task "1" o-- "0..*" Observer : observers
+
+@enduml

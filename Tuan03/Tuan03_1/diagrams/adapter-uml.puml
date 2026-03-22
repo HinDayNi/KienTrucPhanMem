@@ -1,0 +1,26 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+title Adapter Pattern (XML -> JSON)
+
+class XMLService {
+  +getXML(): String
+}
+
+class JSONService {
+  +sendJSON(data): Object
+}
+
+class Adapter {
+  +convert(): Promise<Object>
+}
+
+class "xml2js.Parser" as XmlParser <<external>> {
+  +parseStringPromise(xml: String): Promise<Object>
+}
+
+Adapter ..> XMLService : uses
+Adapter ..> JSONService : uses
+Adapter ..> XmlParser : uses
+
+@enduml
