@@ -1,0 +1,21 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+title Observer - NotificationCenter
+
+class NotificationCenter {
+  -observers: Subscriber[]
+  +subscribe(observer)
+  +unsubscribe(name)
+  +notify(event): string[]
+}
+
+class Subscriber {
+  +name: string
+  +role: string
+  +update(event): string
+}
+
+NotificationCenter "1" o-- "*" Subscriber
+
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+title Decorator - Borrow Flow
+
+class BorrowBase {
+  +getBorrowDays(): number
+  +getFeatures(): string[]
+}
+
+class BorrowDecorator {
+  -wrappee: BorrowBase
+  +getBorrowDays(): number
+  +getFeatures(): string[]
+}
+
+class ExtendLoanDecorator {
+  -extraDays: number
+}
+
+class SpecialEditionDecorator {
+  -editionName: string
+}
+
+BorrowBase <|-- BorrowDecorator
+BorrowDecorator <|-- ExtendLoanDecorator
+BorrowDecorator <|-- SpecialEditionDecorator
+BorrowDecorator --> BorrowBase : wraps
+
+@enduml

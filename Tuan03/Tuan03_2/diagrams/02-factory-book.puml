@@ -1,0 +1,28 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+title Factory Method - BookFactory
+
+class BookFactory {
+  +createBook(type, payload): Book
+}
+
+class Book {
+  +id: string
+  +title: string
+  +author: string
+  +genre: string
+  +type: string
+  +available: boolean
+}
+
+class PaperBook
+class EBook
+class AudioBook
+
+BookFactory ..> Book : create()
+Book <|-- PaperBook
+Book <|-- EBook
+Book <|-- AudioBook
+
+@enduml

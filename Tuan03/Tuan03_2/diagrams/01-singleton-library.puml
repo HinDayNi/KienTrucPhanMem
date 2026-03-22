@@ -1,0 +1,12 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+title Singleton - Library
+
+class Library {
+  -{static} instance: Library
+  -Library()
+  +{static} getInstance(): Library
+}
+
+@enduml
