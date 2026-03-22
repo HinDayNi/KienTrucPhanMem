@@ -95,27 +95,62 @@ async function updatePrice() {
     const priceValue = Number(priceInput.value);
 
     if (!Number.isFinite(priceValue) || priceValue < 0) {
-        setStatus("observerStatus", "Giá phải là số >= 0.", "error");
+        setStatus("observerStockStatus", "Giá phải là số >= 0.", "error");
         priceInput.focus();
         return;
     }
 
     try {
         setButtonLoading("btnUpdatePrice", true, "Đang cập nhật...", "Cập nhật giá");
-        setStatus("observerStatus", "Đang phát sự kiện thay đổi giá...", "info");
+        setStatus("observerStockStatus", "Đang phát sự kiện thay đổi giá...", "info");
 
-        const data = await fetchText('/observer/update', {
+        const payload = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ price: priceValue })
-        });
+        };
 
-        setOutput("observer", data || '(Không có subscriber)');
-        setStatus("observerStatus", "Đã gửi thông báo cho các observer.", "success");
+        let data;
+        try {
+            data = await fetchText('/observer/stock/update', payload);
+        } catch (stockRouteError) {
+            // Support projects that only expose legacy endpoint /observer/update.
+            if (!String(stockRouteError.message || '').includes('Cannot POST /observer/stock/update')) {
+                throw stockRouteError;
+            }
+
+            data = await fetchText('/observer/update', payload);
+        }
+
+        setOutput("observerStock", data || '(Không có subscriber)');
+        setStatus("observerStockStatus", "Đã gửi thông báo cho các investor.", "success");
     } catch (error) {
-        setStatus("observerStatus", `Lỗi: ${error.message}`, "error");
+        setStatus("observerStockStatus", `Lỗi: ${error.message}`, "error");
     } finally {
         setButtonLoading("btnUpdatePrice", false, "Đang cập nhật...", "Cập nhật giá");
+    }
+}
+
+async function updateTaskStatus() {
+    const statusInput = document.getElementById('taskStatus');
+    const statusValue = statusInput.value;
+
+    try {
+        setButtonLoading("btnUpdateTaskStatus", true, "Đang cập nhật...", "Cập nhật task");
+        setStatus("observerTaskStatus", "Đang phát sự kiện thay đổi task...", "info");
+
+        const data = await fetchText('/observer/task/update', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: statusValue })
+        });
+
+        setOutput("observerTask", data || '(Không có subscriber)');
+        setStatus("observerTaskStatus", "Đã gửi thông báo cho các thành viên.", "success");
+    } catch (error) {
+        setStatus("observerTaskStatus", `Lỗi: ${error.message}`, "error");
+    } finally {
+        setButtonLoading("btnUpdateTaskStatus", false, "Đang cập nhật...", "Cập nhật task");
     }
 }
 
@@ -151,11 +186,13 @@ async function convertXML() {
 
 document.addEventListener('DOMContentLoaded', function () {
     setOutput("tree", "Chưa có dữ liệu.");
-    setOutput("observer", "Nhập giá và bấm 'Cập nhật giá' để xem thông báo.");
+    setOutput("observerStock", "Nhập giá và bấm 'Cập nhật giá' để xem thông báo investor.");
+    setOutput("observerTask", "Chọn trạng thái và bấm 'Cập nhật task' để xem thông báo team.");
     setOutput("jsonResult", "Nhập XML và bấm 'Chuyển XML' để xem JSON.");
 
     setStatus("compositeStatus", "Sẵn sàng thao tác Composite.", "info");
-    setStatus("observerStatus", "Sẵn sàng thao tác Observer.", "info");
+    setStatus("observerStockStatus", "Sẵn sàng thao tác Observer cho cổ phiếu.", "info");
+    setStatus("observerTaskStatus", "Sẵn sàng thao tác Observer cho task.", "info");
     setStatus("adapterStatus", "Sẵn sàng thao tác Adapter.", "info");
 
     loadTree(true);

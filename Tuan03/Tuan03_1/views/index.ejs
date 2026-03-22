@@ -47,13 +47,25 @@
             </article>
 
             <article class="card" aria-labelledby="observer-title">
-                <h2 id="observer-title">Observer - Gửi thông báo giá</h2>
+                <h2 id="observer-title">Observer - Giá cổ phiếu và trạng thái Task</h2>
                 <p class="desc">
-                    Giá thay đổi sẽ được gửi đến danh sách investor đang subscribe.
+                    UI chỉ tập trung mô phỏng nghiệp vụ để dễ hình dung:
+                    khi Subject thay đổi thì các Observer đã đăng ký được thông báo ngay.
                 </p>
 
+                <div class="observer-requirements">
+                    <strong>Yêu cầu nghiệp vụ</strong>
+                    <ul>
+                        <li>Cổ phiếu đổi giá -> investor đã subscribe nhận thông báo tức thời.</li>
+                        <li>Task đổi trạng thái -> thành viên nhóm đã subscribe nhận thông báo tự động.</li>
+                    </ul>
+                </div>
+
+                <p class="scenario-title">Tình huống 1: Theo dõi giá cổ phiếu</p>
+                <p class="observer-members">Observers đã đăng ký: Investor A, Investor B</p>
+
                 <div class="field-row">
-                    <label for="price">Giá mới</label>
+                    <label for="price">Giá cổ phiếu mới</label>
                     <input id="price" type="number" min="0" step="1" placeholder="Ví dụ: 120">
                 </div>
 
@@ -61,8 +73,28 @@
                     <button id="btnUpdatePrice" onclick="updatePrice()">Cập nhật giá</button>
                 </div>
 
-                <p id="observerStatus" class="status" aria-live="polite"></p>
-                <pre id="observer" class="output"></pre>
+                <p id="observerStockStatus" class="status" aria-live="polite"></p>
+                <pre id="observerStock" class="output"></pre>
+
+                <p class="scenario-title">Tình huống 2: Theo dõi trạng thái task</p>
+                <p class="observer-members">Observers đã đăng ký: Team member An, Team member Binh</p>
+
+                <div class="field-row">
+                    <label for="taskStatus">Trạng thái task</label>
+                    <select id="taskStatus">
+                        <option value="TODO">TODO</option>
+                        <option value="IN_PROGRESS">IN_PROGRESS</option>
+                        <option value="BLOCKED">BLOCKED</option>
+                        <option value="DONE">DONE</option>
+                    </select>
+                </div>
+
+                <div class="actions">
+                    <button id="btnUpdateTaskStatus" class="secondary" onclick="updateTaskStatus()">Cập nhật task</button>
+                </div>
+
+                <p id="observerTaskStatus" class="status" aria-live="polite"></p>
+                <pre id="observerTask" class="output"></pre>
             </article>
 
             <article class="card" aria-labelledby="adapter-title">

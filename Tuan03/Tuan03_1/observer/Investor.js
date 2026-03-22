@@ -6,8 +6,16 @@ class Investor extends Observer {
         this.name = name;
     }
 
-    update(price) {
-        console.log(`${this.name} notified: New price = ${price}`);
+    update(event) {
+        if (typeof event === 'number') {
+            console.log(`${this.name} notified: New price = ${event}`);
+            return;
+        }
+
+        const symbol = event.symbol || 'STOCK';
+        console.log(
+            `${this.name} notified: ${symbol} changed ${event.oldPrice} -> ${event.newPrice}`
+        );
     }
 }
 
