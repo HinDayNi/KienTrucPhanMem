@@ -57,6 +57,48 @@ h1 {
     line-height: 1.55;
 }
 
+.workflow {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0 0 18px;
+}
+
+.workflow-step {
+    position: relative;
+    background: rgba(255, 253, 247, 0.78);
+    border: 1px solid #d8ccb8;
+    border-radius: 14px;
+    padding: 12px 12px 12px 44px;
+}
+
+.workflow-step h3 {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.workflow-step p {
+    margin: 7px 0 0;
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.45;
+}
+
+.step-badge {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #1c5f4b;
+    color: #fff;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+    font-size: 0.84rem;
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -116,6 +158,13 @@ textarea {
     gap: 8px;
     flex-wrap: wrap;
     margin-top: 4px;
+}
+
+.split-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: center;
 }
 
 button {
@@ -186,25 +235,6 @@ button.secondary:hover {
     line-height: 1.45;
 }
 
-.observer-requirements {
-    margin: 8px 0 14px;
-    padding: 10px 12px;
-    border: 1px dashed #c9b99f;
-    border-radius: 10px;
-    background: #fff8eb;
-}
-
-.observer-requirements strong {
-    display: block;
-    margin-bottom: 6px;
-}
-
-.observer-requirements ul {
-    margin: 0;
-    padding-left: 18px;
-    color: var(--muted);
-}
-
 .scenario-title {
     margin: 14px 0 6px;
     font-weight: 700;
@@ -218,6 +248,10 @@ button.secondary:hover {
 }
 
 @media (max-width: 1024px) {
+    .workflow {
+        grid-template-columns: 1fr;
+    }
+
     .grid {
         grid-template-columns: 1fr;
     }

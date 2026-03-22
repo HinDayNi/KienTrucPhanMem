@@ -22,4 +22,21 @@ router.post('/convert', async (req, res) => {
     }
 });
 
+router.post('/convert/json-to-xml', (req, res) => {
+    const raw = (req.body.json || '').trim();
+
+    if (!raw) {
+        return res.status(400).json({ message: 'JSON không được để trống.' });
+    }
+
+    try {
+        const parsed = JSON.parse(raw);
+        const builder = new xml2js.Builder({ headless: true });
+        const xml = builder.buildObject(parsed);
+        return res.json({ xml });
+    } catch (error) {
+        return res.status(400).json({ message: 'JSON không hợp lệ.' });
+    }
+});
+
 module.exports = router;

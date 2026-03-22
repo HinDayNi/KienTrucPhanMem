@@ -10,19 +10,14 @@
     <main class="page">
         <header class="hero">
             <p class="kicker">Tuần 03 - Interactive Practice</p>
-            <h1>Design Pattern Dashboard</h1>
-            <p class="hero-text">
-                Theo dõi rõ nghiệp vụ của từng bài thông qua thao tác trực tiếp với API:
-                Composite (quản lý cây), Observer (phát thông báo), Adapter (chuyển đổi dữ liệu).
-            </p>
+            <h1>Bảng Mô Phỏng Nghiệp Vụ Design Pattern</h1>
+            <p class="hero-text">Tập trung thao tác trực tiếp để quan sát hành vi nghiệp vụ của từng pattern.</p>
         </header>
 
         <section class="grid">
             <article class="card" aria-labelledby="composite-title">
                 <h2 id="composite-title">Composite - Quản lý cây File/Folder</h2>
-                <p class="desc">
-                    Thêm node mới vào cấu trúc Root và xem kết quả hiển thị dạng cây.
-                </p>
+                <p class="desc">Thêm file/folder, chọn thư mục cha và theo dõi cây thay đổi theo thời gian thực.</p>
 
                 <div class="field-row">
                     <label for="itemName">Tên item</label>
@@ -37,8 +32,17 @@
                     </select>
                 </div>
 
+                <div class="field-row">
+                    <label for="parentFolder">Thư mục cha</label>
+                    <select id="parentFolder">
+                        <option value="Root">Root</option>
+                    </select>
+                </div>
+
                 <div class="actions">
                     <button id="btnAddItem" onclick="addItem()">Thêm vào cây</button>
+                    <button id="btnCompositeDemo" class="secondary" onclick="runCompositeDemo()">Tạo dữ liệu mẫu</button>
+                    <button id="btnCompositeReset" class="secondary" onclick="resetTree()">Reset cây</button>
                     <button id="btnLoadTree" class="secondary" onclick="loadTree()">Tải lại cây</button>
                 </div>
 
@@ -48,21 +52,14 @@
 
             <article class="card" aria-labelledby="observer-title">
                 <h2 id="observer-title">Observer - Giá cổ phiếu và trạng thái Task</h2>
-                <p class="desc">
-                    UI chỉ tập trung mô phỏng nghiệp vụ để dễ hình dung:
-                    khi Subject thay đổi thì các Observer đã đăng ký được thông báo ngay.
-                </p>
-
-                <div class="observer-requirements">
-                    <strong>Yêu cầu nghiệp vụ</strong>
-                    <ul>
-                        <li>Cổ phiếu đổi giá -> investor đã subscribe nhận thông báo tức thời.</li>
-                        <li>Task đổi trạng thái -> thành viên nhóm đã subscribe nhận thông báo tự động.</li>
-                    </ul>
-                </div>
+                <p class="desc">Thêm người theo dõi rồi kích hoạt sự kiện thay đổi để thấy thông báo tức thời.</p>
 
                 <p class="scenario-title">Tình huống 1: Theo dõi giá cổ phiếu</p>
-                <p class="observer-members">Observers đã đăng ký: Investor A, Investor B</p>
+                <div class="field-row split-row">
+                    <input id="investorName" placeholder="Tên investor mới">
+                    <button id="btnAddInvestor" class="secondary" onclick="addStockSubscriber()">Thêm investor</button>
+                </div>
+                <p id="stockSubscribers" class="observer-members"></p>
 
                 <div class="field-row">
                     <label for="price">Giá cổ phiếu mới</label>
@@ -77,7 +74,11 @@
                 <pre id="observerStock" class="output"></pre>
 
                 <p class="scenario-title">Tình huống 2: Theo dõi trạng thái task</p>
-                <p class="observer-members">Observers đã đăng ký: Team member An, Team member Binh</p>
+                <div class="field-row split-row">
+                    <input id="memberName" placeholder="Tên thành viên mới">
+                    <button id="btnAddMember" class="secondary" onclick="addTaskSubscriber()">Thêm thành viên</button>
+                </div>
+                <p id="taskSubscribers" class="observer-members"></p>
 
                 <div class="field-row">
                     <label for="taskStatus">Trạng thái task</label>
@@ -99,9 +100,7 @@
 
             <article class="card" aria-labelledby="adapter-title">
                 <h2 id="adapter-title">Adapter - XML sang JSON</h2>
-                <p class="desc">
-                    Nhập XML đầu vào, hệ thống parse và chuyển về định dạng JSON để xử lý.
-                </p>
+                <p class="desc">Thử cả 2 chiều chuyển đổi để mô phỏng tích hợp hệ thống thực tế.</p>
 
                 <div class="field-row">
                     <label for="xmlInput">Nội dung XML</label>
@@ -114,6 +113,18 @@
 
                 <p id="adapterStatus" class="status" aria-live="polite"></p>
                 <pre id="jsonResult" class="output"></pre>
+
+                <div class="field-row">
+                    <label for="jsonInput">Nội dung JSON</label>
+                    <textarea id="jsonInput">{"user":{"name":"Hien"}}</textarea>
+                </div>
+
+                <div class="actions">
+                    <button id="btnConvertJSON" class="secondary" onclick="convertJSONToXML()">Convert JSON</button>
+                </div>
+
+                <p id="adapterReverseStatus" class="status" aria-live="polite"></p>
+                <pre id="xmlResult" class="output"></pre>
             </article>
         </section>
     </main>

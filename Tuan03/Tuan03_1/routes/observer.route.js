@@ -13,6 +13,8 @@ const sprintTask = new Task('Implement Observer module');
 
 let stockLogs = [];
 let taskLogs = [];
+const stockSubscribers = [];
+const taskSubscribers = [];
 
 class UIInvestor extends Investor {
     update(event) {
@@ -30,10 +32,50 @@ class UITeamMember extends TeamMember {
     }
 }
 
-stock.subscribe(new UIInvestor("A"));
-stock.subscribe(new UIInvestor("B"));
-sprintTask.subscribe(new UITeamMember('An'));
-sprintTask.subscribe(new UITeamMember('Binh'));
+function subscribeStockInvestor(name) {
+    const investor = new UIInvestor(name);
+    stockSubscribers.push(investor);
+    stock.subscribe(investor);
+}
+
+function subscribeTaskMember(name) {
+    const member = new UITeamMember(name);
+    taskSubscribers.push(member);
+    sprintTask.subscribe(member);
+}
+
+subscribeStockInvestor('A');
+subscribeStockInvestor('B');
+subscribeTaskMember('An');
+subscribeTaskMember('Binh');
+
+router.get('/stock/subscribers', (req, res) => {
+    return res.json(stockSubscribers.map(item => item.name));
+});
+
+router.get('/task/subscribers', (req, res) => {
+    return res.json(taskSubscribers.map(item => item.name));
+});
+
+router.post('/stock/subscribe', (req, res) => {
+    const name = String(req.body.name || '').trim();
+    if (!name) {
+        return res.status(400).send('Tên investor không hợp lệ.');
+    }
+
+    subscribeStockInvestor(name);
+    return res.json(stockSubscribers.map(item => item.name));
+});
+
+router.post('/task/subscribe', (req, res) => {
+    const name = String(req.body.name || '').trim();
+    if (!name) {
+        return res.status(400).send('Tên thành viên không hợp lệ.');
+    }
+
+    subscribeTaskMember(name);
+    return res.json(taskSubscribers.map(item => item.name));
+});
 
 function handleStockUpdate(req, res) {
     const price = Number(req.body.price);
