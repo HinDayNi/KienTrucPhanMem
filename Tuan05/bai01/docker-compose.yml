@@ -1,0 +1,14 @@
+services:
+  web:
+    build: .
+    container_name: web-container
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/usr/share/nginx/html
+
+  redis:
+    image: redis
+    container_name: redis-container
+    ports:
+      - "6379:6379"

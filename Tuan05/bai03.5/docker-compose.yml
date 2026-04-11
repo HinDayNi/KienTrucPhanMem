@@ -1,0 +1,23 @@
+services:
+
+  redis:
+    image: redis
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  vote:
+    image: dockersamples/examplevotingapp_vote
+    ports:
+      - "5000:80"
+
+  result:
+    image: dockersamples/examplevotingapp_result
+    ports:
+      - "5001:80"
+
+  worker:
+    image: dockersamples/examplevotingapp_worker
