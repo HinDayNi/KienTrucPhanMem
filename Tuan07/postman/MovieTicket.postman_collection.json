@@ -1,0 +1,228 @@
+{
+  "info": {
+    "name": "Movie Ticket System — Smoke Test",
+    "description": "8 request E2E smoke test cho Movie Ticket System (Event-Driven, polyrepo). Token + IDs tự động được extract & inject. Yêu cầu API Gateway (default http://localhost:8080) + 4 microservice + RabbitMQ + Postgres đang chạy.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "b3a1f0e0-1111-4222-9333-444455556666"
+  },
+  "variable": [
+    { "key": "gateway", "value": "http://localhost:8080" },
+    { "key": "adminUsername", "value": "admin" },
+    { "key": "adminPassword", "value": "Admin@123" },
+    { "key": "newUsername", "value": "alice" },
+    { "key": "newEmail", "value": "alice@example.com" },
+    { "key": "newPassword", "value": "Alice@1234" },
+    { "key": "adminToken", "value": "" },
+    { "key": "userToken", "value": "" },
+    { "key": "movieId", "value": "" },
+    { "key": "bookingId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "1. Register new user",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{gateway}}/api/users/register",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"{{newUsername}}\",\n  \"email\": \"{{newEmail}}\",\n  \"password\": \"{{newPassword}}\",\n  \"fullName\": \"Alice Wonderland\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 201 hoặc 409 (đã tồn tại)', function () {",
+              "  pm.expect([201, 200, 409]).to.include(pm.response.code);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Login as user",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{gateway}}/api/users/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"{{newUsername}}\",\n  \"password\": \"{{newPassword}}\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('200 OK', () => pm.response.to.have.status(200));",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set('userToken', json.accessToken);",
+              "console.log('userToken set');"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Login as admin",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{gateway}}/api/users/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"{{adminUsername}}\",\n  \"password\": \"{{adminPassword}}\"\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('200 OK', () => pm.response.to.have.status(200));",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set('adminToken', json.accessToken);",
+              "console.log('adminToken set');"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. GET /me (user)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{userToken}}" }
+        ],
+        "url": "{{gateway}}/api/users/me"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('200 OK', () => pm.response.to.have.status(200));",
+              "pm.expect(pm.response.json().username).to.eql(pm.collectionVariables.get('newUsername'));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. List movies",
+      "request": {
+        "method": "GET",
+        "url": "{{gateway}}/api/movies?page=0&size=20"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('200 OK', () => pm.response.to.have.status(200));",
+              "const json = pm.response.json();",
+              "pm.expect(json.items.length, 'có ít nhất 1 phim seed').to.be.greaterThan(0);",
+              "pm.collectionVariables.set('movieId', json.items[0].id);",
+              "pm.collectionVariables.set('movieUnitPrice', json.items[0].unitPrice);",
+              "console.log('movieId =', json.items[0].id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. POST /movies (admin only)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{gateway}}/api/movies",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Test Movie via Postman\",\n  \"description\": \"Created from smoke test\",\n  \"durationMinutes\": 100,\n  \"posterUrl\": \"https://placehold.co/400x600\",\n  \"releaseDate\": \"2026-04-25\",\n  \"unitPrice\": 90000\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('201 Created', () => pm.expect([200,201]).to.include(pm.response.code));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Create booking",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{userToken}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{gateway}}/api/bookings",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"movieId\": \"{{movieId}}\",\n  \"showtime\": \"2026-04-26T20:00:00Z\",\n  \"seats\": [\"A1\", \"A2\"],\n  \"unitPrice\": {{movieUnitPrice}}\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('202 Accepted', () => pm.expect([200,201,202]).to.include(pm.response.code));",
+              "const json = pm.response.json();",
+              "pm.collectionVariables.set('bookingId', json.id);",
+              "pm.expect(json.status).to.eql('PENDING');",
+              "console.log('bookingId =', json.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "8. GET booking status (poll until non-PENDING)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{userToken}}" }
+        ],
+        "url": "{{gateway}}/api/bookings/{{bookingId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('200 OK', () => pm.response.to.have.status(200));",
+              "const json = pm.response.json();",
+              "console.log('Booking status =', json.status);",
+              "if (json.status === 'PENDING') {",
+              "  console.log('still PENDING — chạy lại request này sau 1-2s, hoặc dùng Runner để loop');",
+              "} else {",
+              "  pm.test('CONFIRMED hoặc FAILED', () => pm.expect(['CONFIRMED','FAILED']).to.include(json.status));",
+              "}"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
